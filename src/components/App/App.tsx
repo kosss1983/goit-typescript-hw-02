@@ -53,16 +53,13 @@ const App: React.FC = () => {
       try {
         setLoading(true);
         setError(false);
-        const { data, status } = await fetchImages<{
-          data: object;
-          status: number;
-        }>(query, page);
+        const { data, status } = await fetchImages<fetchData>(query, page);
 
         if (status !== 200) {
           throw status;
         }
 
-        const { results, total_pages } = data as fetchData;
+        const { results, total_pages } = data;
         setTotalPages(total_pages);
         setImages(prev => [...prev, ...results]);
       } catch (e) {
